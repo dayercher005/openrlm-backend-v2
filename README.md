@@ -1,4 +1,4 @@
-# openrlm Backend
+# Backend Service for openrlm
 Backend Server for openrlm desktop application
 
 
@@ -10,7 +10,7 @@ Prerequisite
 
 Install Dependencies
 ```bash
-pip install sqlmodel "fastapi["standard"]"
+pip install sqlmodel "fastapi[standard]"
 ```
 
 Setting up environment variables
