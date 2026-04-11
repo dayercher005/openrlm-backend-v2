@@ -3,6 +3,6 @@ from fastapi import APIRouter
 router = APIRouter()
 
 @router.get("")
-async def get_conversations():
+async def get_conversation():
     
     return
