@@ -5,3 +5,5 @@ load_dotenv()
 
 RLM_PROVIDER = os.getenv("RLM_PROVIDER")
 AI_MODEL = os.getenv("AI_MODEL")
+
+FRONTEND_URL = os.getenv("FRONTEND_URL")
