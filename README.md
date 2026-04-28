@@ -10,14 +10,25 @@ Prerequisite
 
 Install Dependencies
 ```bash
-pip install sqlmodel "fastapi[standard]"
+pip install sqlmodel "fastapi[standard]" openrlm
 ```
 
 Setting up environment variables
 ```bash
-OPENROUTER_API_KEY= # For paid Open Router API Key
+# Either "openrouter" or "anthropic"
+RLM_PROVIDER=
 
-ANTHROPIC_API_KEY= # For paid Anthropic API Key
+# Type of AI Model (e.g claude-sonnet-4.5)
+AI_MODEL=
+
+# If using paid OpenRouter API Key
+OPENROUTER_API_KEY=
+
+# If using paid Anthropic API Key
+ANTHROPIC_API_KEY=
+
+# Frontend URL (for CORS)
+FRONTEND_URL=
 ```
 
 Run Development Server
