@@ -1,7 +1,6 @@
 # Backend Service for openrlm
 Backend Server for openrlm desktop application
 
-
 ### Start Development Environment
 
 Prerequisite
@@ -10,7 +9,7 @@ Prerequisite
 
 Install Dependencies
 ```bash
-pip install sqlmodel "fastapi[standard]" openrlm
+pip install sqlmodel "fastapi[standard]" openrlm alembic sqlalchemy
 ```
 
 Setting up environment variables
@@ -29,6 +28,13 @@ ANTHROPIC_API_KEY=
 
 # Frontend URL (for CORS)
 FRONTEND_URL=
+
+# PostgreSQL details
+PG_USER=
+PG_PASSWORD=
+PG_HOST=
+PG_PORT=
+PG_DATABASE=
 ```
 
 Run Development Server
