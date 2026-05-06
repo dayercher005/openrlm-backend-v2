@@ -1,15 +1,24 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from src.models.models import Conversation, Message
 
 from src.routers.new_conversation import router as new_conversation_router
 from src.routers.conversation_list import router as conversation_list_router
 from src.routers.conversation import router as conversation_router
 
+from src.libs.database import get_db;
+
+from src.config import FRONTEND_URL
+
 app = FastAPI()
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    get_db()
+
 origins = [
-    "http://localhost:5173",
+   f"{FRONTEND_URL}",
 ]
 
 app.add_middleware(
