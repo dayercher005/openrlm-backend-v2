@@ -1,0 +1,8 @@
+fastapi
+uvicorn[standard]
+sqlmodel
+alembic
+asyncpg
+psycopg2-binary
+python-dotenv
+openrlm
