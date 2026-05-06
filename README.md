@@ -1,43 +1,54 @@
 # Backend Service for openrlm
 Backend Server for openrlm desktop application
 
-### Start Development Environment
+## Development
 
-Prerequisite
-
+### Prerequisite
 - Python
+- Docker
 
-Install Dependencies
+
+### Setup Environment
+Create a local .env file:
 ```bash
-pip install sqlmodel "fastapi[standard]" openrlm alembic sqlalchemy
+cp .env.example .env
+```
+You can find the required environment variables in `.env.example`.
+
+### Start Development Environment
+Build and start the app server and database:
+```bash
+docker compose up --build
 ```
 
-Setting up environment variables
+Run database migration:
 ```bash
-# Either "openrouter" or "anthropic"
-RLM_PROVIDER=
-
-# Type of AI Model (e.g claude-sonnet-4.5)
-AI_MODEL=
-
-# If using paid OpenRouter API Key
-OPENROUTER_API_KEY=
-
-# If using paid Anthropic API Key
-ANTHROPIC_API_KEY=
-
-# Frontend URL (for CORS)
-FRONTEND_URL=
-
-# PostgreSQL details
-PG_USER=
-PG_PASSWORD=
-PG_HOST=
-PG_PORT=
-PG_DATABASE=
+docker compose exec run alembic upgrade head
 ```
 
-Run Development Server
+View consolidated logs:
 ```bash
-fastapi dev
+docker compose logs -f
+```
+
+Shutdown the app server and database:
+```bash
+docker compose down
+```
+
+### Local URLs
+
+FastAPI Server:
+```bash
+http://localhost:8000/
+```
+
+API Reference: 
+```bash
+http://localhost:8000/docs
+```
+
+Postgres DB host port:
+```bash
+5432
 ```
