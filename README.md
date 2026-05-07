@@ -1,6 +1,41 @@
 # Backend Service for openrlm
 Backend Server for openrlm desktop application
 
+---
+## Project Structure
+
+```bash
+.
+├── alembic.ini
+├── compose.yaml
+├── Dockerfile
+├── migrations
+│   ├── env.py
+│   ├── README
+│   ├── script.py.mako
+│   └── versions
+├── pyproject.toml
+├── README.Docker.md
+├── README.md
+├── requirements.txt
+└── src
+    ├── app.py
+    ├── config.py
+    ├── libs
+    │   └── database.py
+    ├── middleware
+    ├── models
+    │   └── models.py
+    ├── routers
+    │   ├── conversation_list.py
+    │   ├── conversation.py
+    │   └── new_conversation.py
+    └── services
+        └── rlm_engine.py
+```
+
+---
+
 ## Development
 
 ### Prerequisite
@@ -9,29 +44,29 @@ Backend Server for openrlm desktop application
 
 
 ### Setup Environment
-Create a local .env file:
+- Create a local .env file:
 ```bash
 cp .env.example .env
 ```
 You can find the required environment variables in `.env.example`.
 
 ### Start Development Environment
-Build and start the app server and database:
+- Build and start the app server and database:
 ```bash
 docker compose up --build
 ```
 
-Run database migration:
+- Run database migration:
 ```bash
 docker compose exec run alembic upgrade head
 ```
 
-View consolidated logs:
+- View consolidated logs:
 ```bash
 docker compose logs -f
 ```
 
-Shutdown the app server and database:
+- Shutdown the app server and database:
 ```bash
 docker compose down
 ```
