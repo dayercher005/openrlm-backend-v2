@@ -25,11 +25,18 @@ Backend Server for openrlm desktop application
     │   └── database.py
     ├── middleware
     ├── models
+    │   ├── __init__.py
+    │   ├── conversation.py
+    │   ├── message.py
     │   └── models.py
     ├── routers
     │   ├── conversation_list.py
     │   ├── conversation.py
     │   └── new_conversation.py
+    ├── schemas
+    │   ├── __init__.py
+    │   ├── conversation.py
+    │   └── message.py
     └── services
         └── rlm_engine.py
 ```
@@ -86,4 +93,11 @@ http://localhost:8000/docs
 Postgres DB host port:
 ```bash
 5432
+```
+
+## Database Migration
+
+### Apply Migration
+```bash
+alembic upgrade head
 ```
