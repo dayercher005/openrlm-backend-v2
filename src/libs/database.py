@@ -1,22 +1,16 @@
-from typing import AsyncGenerator
+import os
 
-from sqlalchemy.ext.asyncio import create_async_engine,  AsyncSession
-from sqlalchemy.orm import sessionmaker
+from sqlmodel import create_engine, Session, SQLModel
+from sqlalchemy import create_engine
 
 from src.config import PG_USER, PG_PASSWORD, PG_HOST, PG_PORT, PG_DATABASE
 
 DATABASE_URL = f"postgresql+asyncpg://{PG_USER}:{PG_PASSWORD}@{PG_HOST}:{PG_PORT}/{PG_DATABASE}"
 
 # Engine for database
-engine = create_async_engine(DATABASE_URL, echo=True)
-
-# Session Generator for database
-AsyncSessionLocal = sessionmaker(
-    engine, class_ = AsyncSession, expire_on_commit=False
-)
-
+engine = create_engine(DATABASE_URL, echo=True)
 
 # Dependency Injection to get session in routes
 async def get_db():
-    async with AsyncSessionLocal() as session:
+    with Session(engine) as session:
         yield session
