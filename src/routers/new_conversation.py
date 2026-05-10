@@ -1,25 +1,33 @@
-from fastapi import APIRouter, Depends
-
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlmodel import select
-
-from src.libs.database import get_db
-from src.models.models import Conversation
+from fastapi import APIRouter, Depends, HTTPException
+from sqlmodel import Session, select
+from src.libs.database import get_session
+from src.models import Conversation, Message
+from src.services.rlm_engine import RlmEngine 
+import asyncio
 
 router = APIRouter()
 
 @router.get("")
-async def get_conversation(id, db: AsyncSession = Depends(get_db)):
-    statement = select(Conversation).where(Conversation.id == id)
-    existing_conversation = db.exec(statement).first()
-    return existing_conversation
+def get_conversation_creator(conversation_id: str, session: Session = Depends(get_session)):
+    conversation = session.get(Conversation, conversation_id)
+    if not conversation:
+        raise HTTPException(status_code=404, detail="Conversation not found")
+    return session.exec(
+        select(Message).where(Message.conversation_id == conversation_id)
+    ).all()
+
 
 @router.post("")
-async def create_conversation(db: AsyncSession = Depends(get_db)):
-    new_conversation = Conversation.model_validate(
-        
+def create_conversation(title: str, session: Session = Depends(get_session)):
+    conversation = Conversation(title=title)
+    session.add(conversation)
+    RlmResponse = asyncio.run(RlmEngine(title))
+    RlmMessage = Message(
+        conversation_id=conversation.conversation_id, 
+        role='ai', 
+        content=RlmResponse
     )
-    db.add(new_conversation)
-    db.commit()
-    db.refresh(new_conversation)
-    return new_conversation
+    session.add(RlmMessage)
+    session.commit()
+    session.refresh(conversation)
+    return conversation

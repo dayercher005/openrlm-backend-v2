@@ -5,9 +5,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from src.routers.new_conversation import router as new_conversation_router
 from src.routers.conversation_list import router as conversation_list_router
-from src.routers.conversation import router as conversation_router
 
-from src.libs.database import get_db;
+from src.libs.database import get_session;
 
 from src.config import FRONTEND_URL
 
@@ -15,7 +14,7 @@ app = FastAPI()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    get_db()
+    get_session()
 
 origins = [
    f"{FRONTEND_URL}",
@@ -35,4 +34,3 @@ async def root():
 
 app.include_router(new_conversation_router, prefix="/new-conversation")
 app.include_router(conversation_list_router, prefix="/conversations")
-app.include_router(conversation_router, prefix="/conversations/{conversation_id}")

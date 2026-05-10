@@ -1,18 +1,13 @@
-import uuid
-
 from sqlmodel import SQLModel, Field, Relationship
+from typing import Optional, List
 from datetime import datetime
-from typing import Optional, TYPE_CHECKING
-
-if TYPE_CHECKING:
-    from src.models.conversation import Conversation
+import uuid
+from src.models.conversation import Conversation
 
 class Message(SQLModel, table=True):
-    __table__name = "messages"
-    
-    id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
-    role: str = Field()
-    content: str = Field(default=None)
-    
-    conversation_id: uuid.UUID = Field(foreign_key="conversations.id")
-    conversation: Conversation = Relationship(back_populates="messages")
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()), primary_key=True)
+    conversation_id: str = Field(foreign_key="conversation.id")
+    role: str  # "user" | "assistant" | "system"
+    content: str
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    conversation: Optional[Conversation] = Relationship(back_populates="messages")
