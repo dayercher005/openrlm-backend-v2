@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import Session, select
 from src.libs.database import get_session
-from src.models import Conversation, Message
+from src.models.models import Conversation, Message
 from src.services.rlm_engine import RlmEngine 
 import asyncio
 
@@ -18,16 +18,23 @@ def get_conversation_creator(conversation_id: str, session: Session = Depends(ge
 
 
 @router.post("")
-def create_conversation(title: str, session: Session = Depends(get_session)):
-    conversation = Conversation(title=title)
-    session.add(conversation)
-    RlmResponse = asyncio.run(RlmEngine(title))
-    RlmMessage = Message(
-        conversation_id=conversation.conversation_id, 
-        role='ai', 
-        content=RlmResponse
+def create_conversation(message: str, session: Session = Depends(get_session)):
+    conversation = Conversation(title=message)
+    user_message = Message(
+        content=message,
+        conversation_id = conversation.id,
+        role='user'
     )
-    session.add(RlmMessage)
+    session.add(conversation)
+    session.add(user_message)
+    rlm_response = asyncio.run(RlmEngine(message))
+    rlm_message = Message(
+        conversation_id=conversation.id, 
+        role='ai', 
+        content=rlm_response,
+        conversation=conversation
+    )
+    session.add(rlm_message)
     session.commit()
     session.refresh(conversation)
     return conversation
