@@ -95,9 +95,10 @@ Postgres DB host port:
 5432
 ```
 
-## Database Migration
+## API Documentation & Endpoints
 
-### Apply Migration
-```bash
-alembic upgrade head
-```
+| Method   | Endpoint                        | Description                         |
+| -------- | ------------------------------- | ----------------------------------- |
+| GET      | /conversations                  | Get list of all conversations       |
+| GET/POST | /new-conversation               | Create new conversation             |
+| GET/POST | /conversations/{conversationId} | Get individual conversation         |
