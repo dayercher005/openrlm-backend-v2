@@ -87,11 +87,11 @@ http://localhost:8000/
 
 - API Reference: 
 
-| Method   | Endpoint                        | Description                    |
-| -------- | ------------------------------- | ------------------------------ |
-| GET      | /conversations                  | Get list of all conversations  |
-| GET/POST | /new-conversation               | Create new conversation        |
-| GET/POST | /conversations/{conversationId} | Get individual conversation    |
+| Method              | Endpoint                        | Description                    |
+| ------------------- | ------------------------------- | ------------------------------ |
+| GET/DELETE          | /conversations                  | Get list of all conversations  |
+| GET/POST            | /new-conversation               | Create new conversation        |
+| GET/POST/PUT/DELETE | /conversations/{conversationId} | Get individual conversation    |
 
 _View API docs link below:
 ```bash
