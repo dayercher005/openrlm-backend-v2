@@ -1,6 +1,4 @@
 from sqlmodel import create_engine, Session
-from sqlalchemy import create_engine
-
 from src.config import PG_USER, PG_PASSWORD, PG_HOST, PG_PORT, PG_DATABASE
 
 DATABASE_URL = f"postgresql://{PG_USER}:{PG_PASSWORD}@{PG_HOST}:{PG_PORT}/{PG_DATABASE}"
