@@ -1,2 +1,1 @@
-from src.models.conversation import Conversation
-from src.models.message import Message
+from src.models.models import Conversation, Message, User
