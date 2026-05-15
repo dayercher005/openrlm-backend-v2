@@ -1,4 +1,4 @@
-# Backend Service for openrlm
+# Backend for openrlm
 Backend Server for openrlm desktop application
 
 ---
@@ -80,12 +80,20 @@ docker compose down
 
 ### Local URLs
 
-FastAPI Server:
+- FastAPI Server:
 ```bash
 http://localhost:8000/
 ```
 
-API Reference: 
+- API Reference: 
+
+| Method   | Endpoint                        | Description                    |
+| -------- | ------------------------------- | ------------------------------ |
+| GET      | /conversations                  | Get list of all conversations  |
+| GET/POST | /new-conversation               | Create new conversation        |
+| GET/POST | /conversations/{conversationId} | Get individual conversation    |
+
+_View API docs link below:
 ```bash
 http://localhost:8000/docs
 ```
@@ -95,10 +103,14 @@ Postgres DB host port:
 5432
 ```
 
-## API Documentation & Endpoints
+## Database Migration
+- Generate Migration
+```bash
+alembic revision --autogenerate -m "<name of migration>" 
+```
 
-| Method   | Endpoint                        | Description                         |
-| -------- | ------------------------------- | ----------------------------------- |
-| GET      | /conversations                  | Get list of all conversations       |
-| GET/POST | /new-conversation               | Create new conversation             |
-| GET/POST | /conversations/{conversationId} | Get individual conversation         |
+- Apply Migration
+```bash
+alembic upgrade head
+```
+
