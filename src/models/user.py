@@ -1,5 +1,4 @@
 import uuid
-
 from sqlmodel import Field, Relationship, SQLModel
 
 class User(SQLModel, table=True):

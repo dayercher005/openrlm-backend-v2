@@ -1,6 +1,7 @@
 from sqlmodel import SQLModel, Field, Relationship
 from typing import List
 from datetime import datetime
+from src.models import Message
 import uuid
 
 class Conversation(SQLModel, table=True):
