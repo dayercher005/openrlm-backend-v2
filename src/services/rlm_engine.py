@@ -1,6 +1,6 @@
 from openrlm import build_runtime
 
-from config import AI_MODEL, RLM_PROVIDER
+from src.config import AI_MODEL, RLM_PROVIDER
 
 async def RlmEngine(content):
     runtime = build_runtime(
